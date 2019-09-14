@@ -2,8 +2,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.eventproject.MainActivity" >
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
+    <item android:id="@+id/Academic"
+        android:title="Academic"
+        app:showAsAction="never" />
+    <item android:id="@+id/Athletic"
+        android:title="Athletic"
+        app:showAsAction="never" />
+    <item android:id="@+id/Entertainment"
+        android:title="Entertainment"
+        app:showAsAction="never" />
+    <item android:id="@+id/Social"
+        android:title="Social"
+        app:showAsAction="never" />
+    <item android:id="@+id/Other"
+        android:title="Other"
         app:showAsAction="never" />
 </menu>
