@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/postToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary" />
+
+    <TextView
+        android:id="@+id/postTitle"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:text="Ultimate Frisbee"
+        android:textColor="@android:color/black"
+        android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/postDescription"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:text="Some friends and I are plaing some ultimate frisbee. Any skill level is good"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/postLocation"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="Krach Field"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/postDateAndTime"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="Spetember 21 - 4:30 to 6:00"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/joinEventButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="I'm in!"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

@@ -6,6 +6,7 @@ public class Post {
 
     private String title;
     private String description;
+    private String location;
     private int month;
     private int day;
     private int year;
@@ -27,6 +28,11 @@ public class Post {
     //setter for description
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    //setter for location
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     //setter for month
@@ -77,6 +83,11 @@ public class Post {
     //getter for description
     public String getDescription() {
         return description;
+    }
+
+    //getter for location
+    public String getLocation() {
+        return location;
     }
 
     //getter for month
