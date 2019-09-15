@@ -15,6 +15,7 @@ public class Post {
     private int endHour;
     private int endMinute;
     private int openSpots;
+    private String tag;
 
     public Post(String title) {
         this.title = title;
@@ -75,6 +76,9 @@ public class Post {
         this.openSpots = openSpots;
     }
 
+    //setter for tag
+    public void setTag(String tag) {this.tag = tag; }
+
     //getter for title
     public String getTitle() {
         return title;
@@ -110,7 +114,7 @@ public class Post {
     }
 
     //getter for starting minute
-    public int getMinute() {
+    public int getStartMinute() {
         return startMinute;
     }
 
@@ -127,5 +131,10 @@ public class Post {
     //getter for open spots
     public int getOpenSpots() {
         return openSpots;
+    }
+
+    //getter for tag
+    public String getTag() {
+        return tag;
     }
 }
