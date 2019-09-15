@@ -114,7 +114,7 @@ public class Post {
     }
 
     //getter for starting minute
-    public int getMinute() {
+    public int getStartMinute() {
         return startMinute;
     }
 
@@ -134,7 +134,7 @@ public class Post {
     }
 
     //getter for tag
-    public String tag() {
+    public String getTag() {
         return tag;
     }
 }
