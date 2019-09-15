@@ -2,6 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.eventproject.MainActivity" >
+    <item android:id="@+id/All"
+        android:title="All"
+        app:showAsAction="never" />
     <item android:id="@+id/Academic"
         android:title="Academic"
         app:showAsAction="never" />
