@@ -62,7 +62,7 @@ public class PostActivity extends AppCompatActivity {
     }
 
     //converts the int of a month to a string
-    private static String getMonth(int month) {
+    public static String getMonth(int month) {
         String output;
         switch (month) {
             case 1:
