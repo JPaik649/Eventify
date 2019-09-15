@@ -13,6 +13,13 @@ public class InputActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
+        Button backbutton = (Button) findViewById(R.id.backbutton);
+            backbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //put back button code here
+                }
+            });
         Button submitbutton = (Button) findViewById(R.id.submitbutton);
             submitbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -24,14 +31,16 @@ public class InputActivity extends AppCompatActivity {
                     EditText EventEnd = (EditText) findViewById(R.id.EventEnd);
                     EditText EventAttendance = (EditText) findViewById(R.id.EventAttendance);
                     EditText EventDescription = (EditText) findViewById(R.id.EventDescription);
+                    EditText EventTag = (EditText) findViewById(R.id.EventTag);
 
                     String title = EventTitle.getText().toString();
                     String location = EventLocation.getText().toString();
                     String datestring = EventDate.getText().toString();
                     String starttimestring = EventStart.getText().toString();
                     String endtimestring = EventEnd.getText().toString();
-                    String attendance = EventAttendance.getText().toString();
+                    int openSpots = Integer.parseInt(EventAttendance.getText().toString());
                     String description = EventDescription.getText().toString();
+                    String tag = EventTag.getText().toString();
 
                     //date reformat
                     String placeholder = "";
@@ -51,6 +60,52 @@ public class InputActivity extends AppCompatActivity {
                     int endHour = Integer.parseInt(placeholder);
                     placeholder = endtimestring.substring(3,5);
                     int endMinute = Integer.parseInt(placeholder);
+                    //tag reformat
+                    switch (tag.toLowerCase()) {
+                        case "academic":
+                            tag = "academic";
+                            break;
+                        case "athletic":
+                            tag = "athletic";
+                            break;
+                        case "entertainment":
+                            tag = "entertainment";
+                            break;
+                        case "social":
+                            tag = "social";
+                            break;
+                        default:
+                            tag="other";
+                            break;
+                    }
+
+                    //vars to be used
+                    //title
+                    //location
+                    //description
+                    //month
+                    //day
+                    //year
+                    //startHour
+                    //startMinute
+                    //endHour
+                    //endMinute
+                    //openSpots
+                    //tag
+
+                    Post postName = new Post(title);
+                    postName.setTitle(title);
+                    postName.setLocation(location);
+                    postName.setDescription(description);
+                    postName.setMonth(month);
+                    postName.setDay(day);
+                    postName.setYear(year);
+                    postName.setStartHour(startHour);
+                    postName.setStartMinute(startMinute);
+                    postName.setEndHour(endHour);
+                    postName.setEndMinute(endMinute);
+                    postName.setOpenSpots(openSpots);
+                    postName.setTag(tag);
                 }
             });
     }
