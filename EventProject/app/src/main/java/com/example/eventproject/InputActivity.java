@@ -1,5 +1,6 @@
 package com.example.eventproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,8 @@ public class InputActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //put back button code here
+                    Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivityForResult (myIntent, 0);
                 }
             });
         Button submitbutton = (Button) findViewById(R.id.submitbutton);
@@ -106,6 +109,10 @@ public class InputActivity extends AppCompatActivity {
                     postName.setEndMinute(endMinute);
                     postName.setOpenSpots(openSpots);
                     postName.setTag(tag);
+
+                    //after pressing submit you will be taken back to homepage
+                    Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivityForResult (myIntent, 0);
                 }
             });
     }
