@@ -7,9 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.File;
+
 public class PostActivity extends AppCompatActivity {
 
     private Button joinEvent;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +20,8 @@ public class PostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post);
 
         //updates all of the info of the post
-        ((TextView)findViewById(R.id.postTitle)).setText(MainActivity.getCurrentPost().getTitle());
+        title = MainActivity.getCurrentPost().getTitle();
+        ((TextView)findViewById(R.id.postTitle)).setText(title);
         ((TextView)findViewById(R.id.postDescription)).setText(MainActivity.getCurrentPost().getDescription());
         ((TextView)findViewById(R.id.postLocation)).setText(MainActivity.getCurrentPost().getLocation());
         ((TextView)findViewById(R.id.postTag)).setText(MainActivity.getCurrentPost().getTag());
@@ -45,18 +49,18 @@ public class PostActivity extends AppCompatActivity {
         }
 
         //deals with the button on the post for joining the event
-        joinEvent = (Button) findViewById(R.id.joinEventButton);
-        if(MainActivity.getCurrentPost().isAttendingEvent()) {
+        joinEvent = findViewById(R.id.joinEventButton);
+        if(MainActivity.getEvents().checkEvent(title)) {
             joinEvent.setBackgroundColor(getResources().getColor(R.color.red));
             joinEvent.setText("Leave event");
         }
         joinEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!MainActivity.getCurrentPost().isAttendingEvent()) {
+                if(!MainActivity.getEvents().checkEvent(title)) {
                     joinEvent.setBackgroundColor(getResources().getColor(R.color.red));
                     joinEvent.setText("Leave event");
-                    MainActivity.getCurrentPost().setAttendingEvent(true);
+                    MainActivity.getEvents().addEvent(title);
                     MainActivity.getCurrentPost().changeCount(1);
                     if(MainActivity.getCurrentPost().getCount() == 1)
                     {
@@ -67,7 +71,7 @@ public class PostActivity extends AppCompatActivity {
                 } else {
                     joinEvent.setBackgroundColor(getResources().getColor(R.color.green));
                     joinEvent.setText("Join Event");
-                    MainActivity.getCurrentPost().setAttendingEvent(false);
+                    MainActivity.getEvents().removeEvent(title);
                     MainActivity.getCurrentPost().changeCount(-1);
                     if(MainActivity.getCurrentPost().getCount() == 1)
                     {

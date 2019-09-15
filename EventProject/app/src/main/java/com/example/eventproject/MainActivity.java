@@ -2,16 +2,29 @@ package com.example.eventproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import android.view.View;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
     public Button button2;
     public Button button3;
     public static Post currentPost;
+    public List<Post> pL;
+    public static AttendingEvent events;
+
+    DatabaseReference postRef = FirebaseDatabase.getInstance().getReference("Post");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        events = new AttendingEvent();
+
+        int x = 0;
+        Post[] post;
 
         Post testPost1 = new Post("Testing phase is the worst");
         testPost1.setDescription("The fitness gram pacer test is a multistage aerobic capacity test that progressively gets more difficult as it continues.");
@@ -62,9 +83,28 @@ public class MainActivity extends AppCompatActivity {
         testPost3.setLocation("Engineering Fountain");
 
 
-        //initiates all the buttons for posts
+        postRef.addValueEventListener(new ValueEventListener() {
+              @Override
+              public void onDataChange (DataSnapshot dataSnapshot){
+                  // This method is called once with the initial value and again
+                  // whenever data at this location is updated.
+                  Map<String,Post> value = (HashMap<String,Post>)dataSnapshot.getValue();
+                  pL = new ArrayList<>(value.values());
+                  for(int i = 0; i < pL.size(); i++) {
+                      Log.d("Debug", "Value at i is: " + pL.get(i));
+                  }
+                  Log.d("Debug", "Value is: " + value);
+              }
 
-        button1 = (Button) findViewById(R.id.postButton1);
+              @Override
+              public void onCancelled (DatabaseError error){
+                  // Failed to read value
+                  Log.w("Debug", "Failed to read value.", error.toException());
+              }
+        });
+
+        //initiates all the buttons for posts
+        button1 = findViewById(R.id.postButton1);
         //use button.setTag(postName); if you want to set a post to a button
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button2 = (Button) findViewById(R.id.postButton2);
+        button2 = findViewById(R.id.postButton2);
         //use button.setTag(postName); if you want to set a post to a button
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button3 = (Button) findViewById(R.id.postButton3);
+        button3 = findViewById(R.id.postButton3);
         //use button.setTag(postName); if you want to set a post to a button
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,12 +275,11 @@ public class MainActivity extends AppCompatActivity {
         button3.setTag(post);
     }
 
-
-
-
-
     public static Post getCurrentPost() {
         return currentPost;
     }
 
+    public static AttendingEvent getEvents() {
+        return events;
+    }
 }

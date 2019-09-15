@@ -17,7 +17,6 @@ public class Post {
     private int openSpots;
     private String tag;
     private int count = 0;
-    private boolean attendingEvent = false;
 
     public Post(String title) {
         this.title = title;
@@ -81,11 +80,6 @@ public class Post {
     //setter for tag
     public void setTag(String tag) {this.tag = tag; }
 
-    //setter for attending event
-    public void setAttendingEvent(boolean attendingEvent) {
-        this.attendingEvent = attendingEvent;
-    }
-
     //getter for title
     public String getTitle() {
         return title;
@@ -148,11 +142,6 @@ public class Post {
     //getter for counter
     public int getCount() {
         return count;
-    }
-
-    //getter for attending event
-    public boolean isAttendingEvent() {
-        return attendingEvent;
     }
 
     //changes the count
