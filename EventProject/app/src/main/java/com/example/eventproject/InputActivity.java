@@ -1,16 +1,26 @@
 package com.example.eventproject;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class InputActivity extends AppCompatActivity {
+
+    Post post;
+    DatabaseReference reff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
         Button backbutton = (Button) findViewById(R.id.backbutton);
@@ -18,15 +28,18 @@ public class InputActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //put back button code here
+                    Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivityForResult (myIntent, 0);
                 }
             });
         Button submitbutton = (Button) findViewById(R.id.submitbutton);
+        reff = FirebaseDatabase.getInstance().getReference();
             submitbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     EditText EventTitle = (EditText) findViewById(R.id.EventTitle);
                     EditText EventLocation = (EditText) findViewById(R.id.EventLocation);
-                    EditText EventDate = (EditText) findViewById(R.id.EventLocation);
+                    EditText EventDate = (EditText) findViewById(R.id.EventDate);
                     EditText EventStart = (EditText) findViewById(R.id.EventStart);
                     EditText EventEnd = (EditText) findViewById(R.id.EventEnd);
                     EditText EventAttendance = (EditText) findViewById(R.id.EventAttendance);
@@ -45,10 +58,11 @@ public class InputActivity extends AppCompatActivity {
                     //date reformat
                     String placeholder = "";
                     placeholder = datestring.substring(0,2);
+                    Log.w("InputActivity", placeholder);
                     int month= Integer.parseInt(placeholder);
                     placeholder = datestring.substring(3,5);
                     int day= Integer.parseInt(placeholder);
-                    placeholder = datestring.substring(6,10);
+                    placeholder = datestring.substring(7);
                     int year = Integer.parseInt(placeholder);
                     //start time reformat
                     placeholder = starttimestring.substring(0,2);
@@ -106,6 +120,11 @@ public class InputActivity extends AppCompatActivity {
                     postName.setEndMinute(endMinute);
                     postName.setOpenSpots(openSpots);
                     postName.setTag(tag);
+                    reff.child("Post").child(title).setValue(postName);
+
+                    //after pressing submit you will be taken back to homepage
+                    Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivityForResult (myIntent, 0);
                 }
             });
     }

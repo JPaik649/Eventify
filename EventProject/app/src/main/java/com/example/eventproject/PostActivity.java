@@ -9,14 +9,13 @@ import android.widget.TextView;
 
 public class PostActivity extends AppCompatActivity {
 
-    private static boolean attendingEvent;
+    private static boolean attendingEvent = false;
     private Button joinEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-        attendingEvent = false;
 
         //updates all of the info of the post
         ((TextView)findViewById(R.id.postTitle)).setText(MainActivity.getCurrentPost().getTitle());
@@ -42,6 +41,10 @@ public class PostActivity extends AppCompatActivity {
 
         //deals with the button on the post for joining the event
         joinEvent = (Button) findViewById(R.id.joinEventButton);
+        if(attendingEvent) {
+            joinEvent.setBackgroundColor(getResources().getColor(R.color.red));
+            joinEvent.setText("Leave event");
+        }
         joinEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
