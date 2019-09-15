@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
+import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     public Button button2;
     public Button button3;
     public static Post currentPost;
+    public List<Post> pL;
+    public static AttendingEvent events;
+    public String childNames[];
 
     DatabaseReference postRef = FirebaseDatabase.getInstance().getReference("Post");
 
@@ -41,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        events = new AttendingEvent();
 
         int x = 0;
         Post[] post;
@@ -79,29 +85,8 @@ public class MainActivity extends AppCompatActivity {
         testPost3.setLocation("Engineering Fountain");
 
 
-        postRef.addValueEventListener(new ValueEventListener() {
-              @Override
-              public void onDataChange (DataSnapshot dataSnapshot){
-                  // This method is called once with the initial value and again
-                  // whenever data at this location is updated.
-                  Map<String,Post> value = (HashMap<String,Post>)dataSnapshot.getValue();
-                  List<Post> pL = new ArrayList<>(value.values());
-                  for(int i = 0; i < pL.size(); i++) {
-                      Log.d("Debug", "Value at i is: " + pL.get(i));
-                  }
-                  Log.d("Debug", "Value is: " + value);
-              }
-
-              @Override
-              public void onCancelled (DatabaseError error){
-                  // Failed to read value
-                  Log.w("Debug", "Failed to read value.", error.toException());
-              }
-          });
-
         //initiates all the buttons for posts
-
-        button1 = (Button) findViewById(R.id.postButton1);
+        button1 = findViewById(R.id.postButton1);
         //use button.setTag(postName); if you want to set a post to a button
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button2 = (Button) findViewById(R.id.postButton2);
+        button2 = findViewById(R.id.postButton2);
         //use button.setTag(postName); if you want to set a post to a button
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button3 = (Button) findViewById(R.id.postButton3);
+        button3 = findViewById(R.id.postButton3);
         //use button.setTag(postName); if you want to set a post to a button
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //adds all the post info to the buttons
-        setPost1(testPost1);
+        //setPost1(pL.get(0));
         setPost2(testPost2);
         setPost3(testPost3);
 
@@ -272,12 +257,11 @@ public class MainActivity extends AppCompatActivity {
         button3.setTag(post);
     }
 
-
-
-
-
     public static Post getCurrentPost() {
         return currentPost;
     }
 
+    public static AttendingEvent getEvents() {
+        return events;
+    }
 }

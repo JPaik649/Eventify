@@ -16,6 +16,7 @@ public class Post {
     private int endMinute;
     private int openSpots;
     private String tag;
+    private int count = 0;
 
     public Post(String title) {
         this.title = title;
@@ -136,6 +137,16 @@ public class Post {
     //getter for tag
     public String getTag() {
         return tag;
+    }
+
+    //getter for counter
+    public int getCount() {
+        return count;
+    }
+
+    //changes the count
+    public void changeCount(int number) {
+        count += number;
     }
 
 }
