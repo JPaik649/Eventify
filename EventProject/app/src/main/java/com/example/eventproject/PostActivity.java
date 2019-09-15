@@ -41,6 +41,10 @@ public class PostActivity extends AppCompatActivity {
 
         //deals with the button on the post for joining the event
         joinEvent = (Button) findViewById(R.id.joinEventButton);
+        if(attendingEvent) {
+            joinEvent.setBackgroundColor(getResources().getColor(R.color.red));
+            joinEvent.setText("Leave event");
+        }
         joinEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
