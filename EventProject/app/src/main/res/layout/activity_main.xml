@@ -218,13 +218,35 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/postButton1"
         app:layout_constraintStart_toStartOf="@+id/postButton1"
-        app:layout_constraintTop_toTopOf="@+id/postButton1" /><![CDATA[
+        app:layout_constraintTop_toTopOf="@+id/postButton1" />
 
-    ;
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toTopOf="@+id/button" />;
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toTopOf="@+id/button" />
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="36dp"
+        android:background="@color/colorPrimary"
+        android:drawableRight="@drawable/ic_forward_arrow"
+        android:text=" Next"
+        android:textColor="@color/gray"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/backButton" />
 
-]]>
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginBottom="36dp"
+        android:background="@color/colorPrimary"
+        android:drawableLeft="@drawable/ic_back_arrow"
+        android:text="Back "
+        android:textColor="@color/gray"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

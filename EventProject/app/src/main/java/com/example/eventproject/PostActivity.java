@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 public class PostActivity extends AppCompatActivity {
 
-    private static boolean attendingEvent = false;
     private Button joinEvent;
 
     @Override
@@ -38,24 +37,44 @@ public class PostActivity extends AppCompatActivity {
         }
         dateAndTime += minute;
         ((TextView)findViewById(R.id.postDateAndTime)).setText(dateAndTime);
+        if(MainActivity.getCurrentPost().getCount() == 1)
+        {
+            ((TextView) findViewById(R.id.postCount)).setText("1 person has signed up");
+        } else {
+            ((TextView) findViewById(R.id.postCount)).setText(MainActivity.getCurrentPost().getCount() + " people have signed up");
+        }
 
         //deals with the button on the post for joining the event
         joinEvent = (Button) findViewById(R.id.joinEventButton);
-        if(attendingEvent) {
+        if(MainActivity.getCurrentPost().isAttendingEvent()) {
             joinEvent.setBackgroundColor(getResources().getColor(R.color.red));
             joinEvent.setText("Leave event");
         }
         joinEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!attendingEvent) {
+                if(!MainActivity.getCurrentPost().isAttendingEvent()) {
                     joinEvent.setBackgroundColor(getResources().getColor(R.color.red));
                     joinEvent.setText("Leave event");
-                    attendingEvent = true;
+                    MainActivity.getCurrentPost().setAttendingEvent(true);
+                    MainActivity.getCurrentPost().changeCount(1);
+                    if(MainActivity.getCurrentPost().getCount() == 1)
+                    {
+                        ((TextView) findViewById(R.id.postCount)).setText("1 person has signed up");
+                    } else {
+                        ((TextView) findViewById(R.id.postCount)).setText(MainActivity.getCurrentPost().getCount() + " people have signed up");
+                    }
                 } else {
                     joinEvent.setBackgroundColor(getResources().getColor(R.color.green));
                     joinEvent.setText("Join Event");
-                    attendingEvent = false;
+                    MainActivity.getCurrentPost().setAttendingEvent(false);
+                    MainActivity.getCurrentPost().changeCount(-1);
+                    if(MainActivity.getCurrentPost().getCount() == 1)
+                    {
+                        ((TextView) findViewById(R.id.postCount)).setText("1 person has signed up");
+                    } else {
+                        ((TextView) findViewById(R.id.postCount)).setText(MainActivity.getCurrentPost().getCount() + " people have signed up");
+                    }
                 }
             }
         });
