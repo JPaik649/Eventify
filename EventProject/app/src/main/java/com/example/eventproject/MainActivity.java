@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         testPost.setEndHour(9);
         testPost.setEndMinute(00);
         testPost.setLocation("Hillenbrand Hall - Roof");
-
+        testPost.setOpenSpots(1);
 
         button = (Button) findViewById(R.id.ericsButton);
         button.setTag(testPost);
