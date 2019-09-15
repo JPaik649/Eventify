@@ -2,16 +2,28 @@ package com.example.eventproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import android.view.View;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,12 +33,17 @@ public class MainActivity extends AppCompatActivity {
     public Button button3;
     public static Post currentPost;
 
+    DatabaseReference postRef = FirebaseDatabase.getInstance().getReference("Post");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        int x = 0;
+        Post[] post;
 
         Post testPost1 = new Post("Testing phase is the worst");
         testPost1.setDescription("The fitness gram pacer test is a multistage aerobic capacity test that progressively gets more difficult as it continues.");
@@ -61,6 +78,26 @@ public class MainActivity extends AppCompatActivity {
         testPost3.setEndMinute(45);
         testPost3.setLocation("Engineering Fountain");
 
+
+        postRef.addValueEventListener(new ValueEventListener() {
+              @Override
+              public void onDataChange (DataSnapshot dataSnapshot){
+                  // This method is called once with the initial value and again
+                  // whenever data at this location is updated.
+                  Map<String,Post> value = (HashMap<String,Post>)dataSnapshot.getValue();
+                  List<Post> pL = new ArrayList<>(value.values());
+                  for(int i = 0; i < pL.size(); i++) {
+                      Log.d("Debug", "Value at i is: " + pL.get(i));
+                  }
+                  Log.d("Debug", "Value is: " + value);
+              }
+
+              @Override
+              public void onCancelled (DatabaseError error){
+                  // Failed to read value
+                  Log.w("Debug", "Failed to read value.", error.toException());
+              }
+          });
 
         //initiates all the buttons for posts
 
