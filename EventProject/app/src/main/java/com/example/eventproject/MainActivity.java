@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //adds all the post info to the buttons
-        //setPost1(pL.get(0));
+        setPost1(testPost1);
         setPost2(testPost2);
         setPost3(testPost3);
 
