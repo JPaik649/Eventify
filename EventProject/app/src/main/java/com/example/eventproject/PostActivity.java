@@ -9,14 +9,13 @@ import android.widget.TextView;
 
 public class PostActivity extends AppCompatActivity {
 
-    private static boolean attendingEvent;
+    private static boolean attendingEvent = false;
     private Button joinEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-        attendingEvent = false;
 
         //updates all of the info of the post
         ((TextView)findViewById(R.id.postTitle)).setText(MainActivity.getCurrentPost().getTitle());
